@@ -6,3 +6,5 @@
   - Batch least squares 
 - Path Planning with localization uncertainty
   - RRT 
+### [Custom PI Controller](./mirror-mount-pi-controller)
+### [Underactuated Robotic Gripper](./underactuated-robotics)
