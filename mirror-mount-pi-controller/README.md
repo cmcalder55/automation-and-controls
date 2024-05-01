@@ -65,7 +65,7 @@ Fig.5 - Example of difference between forward and reverse step sizes of same inp
 </p>
 
 ## Methods  
-[Detailed descriptions of every component in the system and their function can be found **HERE**.](mirror-mount-pi-controller/LV_code_and_guide/Mount_Control_VI_Guide_2.pdf)
+[Detailed descriptions of every component in the system and their function can be found **HERE**.](https://github.com/cmcalder55/automation-and-controls/blob/01e7e5b9cf10c114eadaf49f187771633d81c7d0/mirror-mount-pi-controller/LV_code_and_guide/Mount_Control_VI_Guide_2.pdf)
 
 To compensate for this error, small rotary encoders were inserted into the adjuster screws and attached to the mount using existing screw holes. The 360 degree turn of the screw is proportional to the 0-5 V. output of the rotary encoder, giving the relative position of the screw. This information can then be used to create a feedback system using a custom P.I. controller to automatically correct positional error, as well as define and map the global screw position to utilize the full range of adjustments.   
 
