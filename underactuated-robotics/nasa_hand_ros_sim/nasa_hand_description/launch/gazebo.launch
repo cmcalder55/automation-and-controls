@@ -1,0 +1,36 @@
+<launch>
+	
+	<include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+	<!-- <param name="robot_description" textfile="$(find nasa_hand_description)/urdf/nasa_hand.urdf"/>-->
+	<!-- Load the description for the robot -->
+
+	<param command="$(find xacro)/xacro --inorder $(find nasa_hand_description)/urdf/nasa_hand.xacro" name="robot_description"/>
+
+	<node args="-urdf -model nasa_hand_description -param robot_description" name="urdf_spawner" output="screen" pkg="gazebo_ros" type="spawn_model"/>
+
+	<!-- <node args="pub /calibrated std_msgs/Bool true" name="fake_joint_calibration" pkg="rostopic" type="rostopic"/>-->
+
+	<rosparam file="$(find nasa_hand_control)/config/nasa_hand_control.yaml" command="load"/>
+
+    <node name="hand_position_controller_spawner" output="screen" pkg="controller_manager" respawn="false" type="spawner"
+            args="thumb_prox_joint_position_controller 
+                  thumb_dist_joint_position_controller       
+                  finger1_roll_joint_position_controller       
+                  finger1_prox_joint_position_controller       
+                  finger1_dist_joint_position_controller       
+                  finger2_roll_joint_position_controller       
+                  finger2_prox_joint_position_controller       
+                  finger2_dist_joint_position_controller"/>
+
+    <node name="hand_effort_controller_spawner" output="screen" pkg="controller_manager" respawn="false" type="spawner"
+          args="--stopped
+                thumb_prox_joint_effort_controller 
+                thumb_dist_joint_effort_controller       
+                finger1_roll_joint_effort_controller       
+                finger1_prox_joint_effort_controller       
+                finger1_dist_joint_effort_controller       
+                finger2_roll_joint_effort_controller       
+                finger2_prox_joint_effort_controller       
+                finger2_dist_joint_effort_controller"/>
+</launch>

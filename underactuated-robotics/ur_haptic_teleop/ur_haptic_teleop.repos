@@ -1,0 +1,17 @@
+repositories:
+  src/Universal_Robots_ROS_Driver:
+    type: git
+    url: https://github.com/stevens-armlab/Universal_Robots_ROS_Driver.git
+    version: master
+  src/fmauch_universal_robot:
+    type: git
+    url: https://github.com/stevens-armlab/universal_robot.git
+    version: calibration_devel
+  src/phantom_omni:
+    type: git
+    url: https://github.com/stevens-armlab/phantom_omni.git
+    version: hydro-devel
+  src/ur_haptic_teleop:
+    type: git
+    url: https://github.com/stevens-armlab/ur_haptic_teleop.git
+    version: main

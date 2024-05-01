@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find ur_gazebo)/launch/ur5.launch"/>
+  <include file="$(find omni_common)/launch/visualize.launch"/>
+  <node type="ur_haptic_teleop.py" name="ur_haptic_teleop" pkg="ur_haptic_teleop"/>
+</launch>
+
+
+

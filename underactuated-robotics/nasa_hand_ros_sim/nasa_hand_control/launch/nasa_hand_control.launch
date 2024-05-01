@@ -1,0 +1,29 @@
+<launch>
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam command="load" file="$(find nasa_hand_control)/config/nasa_hand_control.yaml"/>
+  <rosparam command="load" file="$(find nasa_hand_control)/config/nasa_hand_joint_state_controller.yaml"/>
+
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" output="screen" pkg="controller_manager" respawn="false" type="spawner"
+    args="joint_state_controller 
+          thumb_prox_joint_effort_controller 
+          thumb_dist_joint_effort_controller       
+          finger1_roll_joint_position_controller       
+          finger1_prox_joint_effort_controller       
+          finger1_dist_joint_effort_controller       
+          finger2_roll_joint_position_controller       
+          finger2_prox_joint_effort_controller       
+          finger2_dist_joint_effort_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" output="screen" pkg="robot_state_publisher" respawn="false" type="robot_state_publisher">
+    <!-- <remap from="/joint_states" to="/nasa_hand/joint_states"/> -->
+  </node>
+  
+  <!-- load the tendon model nodes -->
+<!--   <node name="tendon_model" ns="/nasa_hand" output="screen" pkg="nasa_hand_control" type="tendon_model_publisher.py"/>
+  <node name="hand_commander" ns="/nasa_hand" output="screen" pkg="nasa_hand_control" type="tendon_model_subscriber.py"/> -->
+  <node name="tendon_model" output="screen" pkg="nasa_hand_control" type="tendon_model_publisher.py"/>
+  <node name="hand_commander" output="screen" pkg="nasa_hand_control" type="tendon_model_subscriber.py"/>
+</launch>

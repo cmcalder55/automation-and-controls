@@ -1,0 +1,60 @@
+# Position Controllers ---------------------------------------
+thumb_prox_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: thumb_prox_joint
+thumb_dist_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: thumb_dist_joint
+finger1_roll_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger1_roll_joint
+finger1_prox_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger1_prox_joint
+finger1_dist_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger1_dist_joint
+finger2_roll_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger2_roll_joint
+finger2_prox_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger2_prox_joint
+finger2_dist_joint_effort_controller:
+  type: effort_controllers/JointEffortController
+  joint: finger2_dist_joint
+
+thumb_prox_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: thumb_prox_joint
+  pid: {p: 0.5, i: 0, d: 0}
+thumb_dist_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: thumb_dist_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger1_roll_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger1_roll_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger1_prox_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger1_prox_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger1_dist_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger1_dist_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger2_roll_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger2_roll_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger2_prox_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger2_prox_joint
+  pid: {p: 0.5, i: 0, d: 0}
+finger2_dist_joint_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: finger2_dist_joint
+  pid: {p: 0.5, i: 0, d: 0}
+
+

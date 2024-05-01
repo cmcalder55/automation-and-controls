@@ -1,0 +1,13 @@
+<launch>
+  <arg name="model"/>
+  <arg default="False" name="gui"/>
+  <param command="$(find xacro)/xacro --inorder $(find nasa_hand_description)/urdf/nasa_hand.xacro" name="robot_description"/>
+  <param name="use_gui" value="$(arg gui)"/>
+  <!-- <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" />-->
+  <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node args="-d $(find nasa_hand_description)/urdf.rviz" name="rviz" pkg="rviz" type="rviz"/>
+</launch>
