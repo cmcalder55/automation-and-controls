@@ -93,9 +93,9 @@ To move the mirrors the following steps are taken:
 Fig.7 - Move mode P.I. controller feedback system diagram.
 </p>
 
-The overall system setup is shown in Fig. 8 below. Detailed descriptions of every component in the system can be found **HERE**. The steps taken can be summarized as follows:  
-**1. Top level TCP communication: The “TCP_connection” VI is used to send position data from Python file “TCP_bare” to the mount 
-controls subVI. The subVI outputs laser coupling percentage and the value is sent back to Python.**  
+The overall system setup is shown in Fig. 9 below. Detailed descriptions of every component in the system can be found **HERE**. The steps taken can be summarized as follows:  
+**1. Top level TCP communication:**  
+The “TCP_connection” VI is used to send position data from Python file “TCP_bare” to the mount controls subVI. The subVI outputs laser coupling percentage and the value is sent back to Python. 
   * Read data from Python
   * Send data to subVI
   * Return data from subVI and exit
