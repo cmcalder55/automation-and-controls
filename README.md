@@ -7,3 +7,4 @@
   - RRT 
 ### [Custom PI Controller](./mirror-mount-pi-controller)
 ### [Underactuated Robotic Gripper](./underactuated-robotics)
+### [Forward/Inverse Kinematics](./fwd-inv-kinematics)
