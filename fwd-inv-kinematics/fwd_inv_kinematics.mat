@@ -1,0 +1,89 @@
+
+function ME598_GrpR1_FwdKin = params(angles)
+    clc
+    %angles = [90 90 90 80 90]
+    %test to see angles in range
+    if(angles(1)>130 || angles(1)<-130) || (angles(2)>95 || angles(2)<5) || 
+(angles(4)>85 || angles(4)<-5) || (angles(5)>90 || angles(5)<-90)
+        disp('Invalid angle(s) inputted');
+        return
+    end
+    
+    %since the sin and cosine functions on matlab are in radians have to convert 
+from degrees to radians    
+    anglesrad = angles * (pi/180);
+    
+    %Homogenous matrices for frames i relative to i-1
+    A1 = [[cos(anglesrad(1)) 0 sin(anglesrad(1)) 0];[sin(anglesrad(1)) 0 -
+cos(anglesrad(1)) 0];[0 1 0 10.5];[0 0 0 1]];
+    A2 = [[cos(anglesrad(2)) -sin(anglesrad(2)) 0 13.5*cos(anglesrad(2))];
+[sin(anglesrad(2)) cos(anglesrad(2)) 0 13.5*sin(anglesrad(2))];[0 0 1 0];[0 0 0 
+1]];
+    A3 = [[cos(anglesrad(3)) -sin(anglesrad(3)) 0 16*cos(anglesrad(3))];
+[sin(anglesrad(3)) cos(anglesrad(3)) 0 16*sin(anglesrad(3))];[0 0 1 0];[0 0 0 1]];
+    A4 = [[cos(anglesrad(4)) 0 sin(anglesrad(4)) 5.5*cos(anglesrad(4))];
+[sin(anglesrad(4)) 0 -cos(anglesrad(4)) 5.5*sin(anglesrad(4))];[0 1 0 0];[0 0 0 
+1]];
+    A5 = [[cos(anglesrad(5)) -sin(anglesrad(5)) 0 0];[sin(anglesrad(5)) 
+cos(anglesrad(5)) 0 0];[0 0 1 7];[0 0 0 1]];
+    %Homogeous matrices for frames i relative to 0
+    A02 = A1*A2;
+    A03 = A02*A3;
+    A04 = A03*A4;
+    A05 = A1*A2*A3*A4*A5;
+    %Position of each joint
+    L1Pos = A1(1:3,4);
+    L2Pos = A02(1:3,4);
+    L3Pos = A03(1:3,4);
+    L4Pos = A04(1:3,4);
+    L5Pos = A05(1:3,4);
+    %theoretical final location;
+    coord = dobotPlot(angles,1,1);
+    
+    fprintf('Calculated final location: p = (%.4f,%.4f,%.4f)\n', 
+L5Pos(1),L5Pos(2),L5Pos(3));
+    fprintf('Theoretical final location: p = (%.4f,%.4f,%.4f)\n', 
+coord(1),coord(2),coord(3));
+
+
+function ME598_GrpR1_InvKin = params(loc)
+    
+    %loc = [21.5 -7.83 0];
+    t1rad = atan(loc(2)/loc(1));
+    t1 = t1rad*180/pi;
+    
+    %disance between projected point p on xo yo plane and origin of that
+    %plane
+    hordist = sqrt(loc(1)^2 + loc(2)^2);
+    
+    %position info from top of link 1 to end of link 3
+    %point A is at joint 4
+    Ax = hordist -5.5;
+    Ay = loc(3) +7 - 10.5;
+    distA = sqrt(Ax^2 + Ay^2);
+    
+    %Looking at mechanism from joint 2 to joint 4
+    %phi is angle AOX
+    phi = atan(Ay/Ax);
+    %a is angle joint 3 O A
+    a = acos((16^2-13.5^2-distA^2)/(-2*13.5*distA));
+    %t2 is angle 3OX
+    t2rad = phi+a;
+    t2 = t2rad*180/pi;
+    
+    t3rad = acos((Ax-13.5*cos(t2rad))/16)+t2rad;
+    t3 = -t3rad*180/pi;
+    
+    %alway made so that link 4 is horizonal and the end effector is
+    %vertical
+    t4 = -(t2+t3);
+    
+    %t5 always zero cause changing it doesn't affect the coordinate
+    t5 = 0;
+    p = dobotPlot([t1 t2 t3 t4 t5],1,1);
+    if(t1>130 || t1<-130) || (t2>95 || t2<5) || (t4>85 || t4<-5) ||(p(1) ~= loc(1))
+        disp('Warning! End-effector beyond robot workspace!');
+        return
+    end
+    fprintf('q = (%.4f,%.4f,%.4f,%.4f,%.4f)\n', t1,t2,t3,t4,t5);
+   

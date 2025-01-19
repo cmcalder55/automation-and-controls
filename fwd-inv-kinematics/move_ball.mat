@@ -1,0 +1,32 @@
+
+function moveBall(q_des)
+    desSuction = 1;
+    dobotPlotXZ(q_des,fignumXZ);
+    dobotPlot(q_des,fignummulti,multiplot);
+    dobotWriteDH(dobot,q_des,desSuction);
+    pause(1)
+    [q_act, pump] = dobotReadDH(dobot)
+    err..q = q_des - q_act
+end
+
+% disable dobot and release com port
+fclose(dobot)
+clear all;
+instrreset
+
+multiplot = 1;
+fignummulti = 1;
+fignumXZ = 2;
+
+home = [ 0 75 -75 0 0 ];
+
+positions = [
+    [ 0 84 -102 17 0 ];            % home to +x, +z / pos 1
+    [ 0 84 -133 50 0 ];            % ball to home
+    [ 0 84 -133 50 0 ];            % to point above
+    [ 0 64 -80  17 0 ];            % above and behind home
+    [ 0 56 -95  40 0 ];            % place ball behind home
+]
+
+for q_des in positions:
+    moveBall(q_des)
